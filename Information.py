@@ -1,6 +1,12 @@
-import wikipedia
-import warnings
 import os
+
+# Wikipedia modülünü yüklü olup olmadığını kontrol et
+try:
+    import wikipedia
+except ImportError:
+    print("Wikipedia module not found. Installing...")
+    os.system("pip install wikipedia")
+    import wikipedia
 
 def select_language():
     languages = wikipedia.languages()
@@ -50,7 +56,7 @@ def search_wikipedia(text, language):
         return None
 
 def main():
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
     try:
         with open("language.txt", "r") as file:
@@ -66,29 +72,27 @@ def main():
             with open("language.txt", "w") as file:
                 file.write(language)
 
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
     while True:
         text = input("What topic do you want to get information about? (Press 0 to change language, or press Enter to exit): ")
 
         if text == '0':
-            os.system('clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             language = select_language()
             if language is None:
                 return
             else:
                 with open("language.txt", "w") as file:
                     file.write(language)
-                os.system('clear')
+                os.system('cls' if os.name == 'nt' else 'clear')
                 main()
         elif text.strip() == '':
             return
 
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            answer = search_wikipedia(text, language)
+        answer = search_wikipedia(text, language)
 
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
 
         print("\nInformation retrieved:")
         if answer:
