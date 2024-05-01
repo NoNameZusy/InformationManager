@@ -1,6 +1,7 @@
+#Credits : Zusy
+
 import os
 
-# Wikipedia modülünü yüklü olup olmadığını kontrol et
 try:
     import wikipedia
 except ImportError:
